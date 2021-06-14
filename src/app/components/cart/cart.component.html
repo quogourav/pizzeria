@@ -1,0 +1,28 @@
+<ng-container *ngIf="cartItems$ | async as cartItems" >
+    <ng-container *ngIf="cartItems.length > 0">
+        
+        <div class="card-container">
+            <h5>No of Items: {{cartItems.length}}</h5>
+        </div>
+        <div class="card-container">            
+            <h5>Amount: {{cartTotal$ | async}}</h5>
+        </div>
+        <div class="card-container">
+            <app-pizza-card [pizza]="pizza" *ngFor="let pizza of cartItems">
+            </app-pizza-card>
+        </div>
+        <div class="card-container">
+            <input type="text" [(ngModel)]="name" placeholder="Enter Customer Name" />
+            <input type="text" [(ngModel)]="email" placeholder="Email" />
+            <input type="tel" [(ngModel)]="phone" placeholder="Contact" />
+            <button (click)="saveOrder()">Order</button>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="cartItems.length === 0">
+        <div class="card-container">
+            Please add some items. Go to <a style="color: blue;" (click)="goto('/home')"> Home </a> or add from <a style="color: blue;" (click)="goto('/add')"> Custom Pizza</a>
+        </div>
+        
+    </ng-container>
+
+</ng-container>

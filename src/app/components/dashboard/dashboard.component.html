@@ -1,0 +1,12 @@
+
+
+<div class="content" role="main">
+  
+    <!-- Resources -->
+    <h2>Select Pizza</h2>
+  
+    <div class="card-container">
+        <app-pizza-card [pizzaType]="pizzaType" *ngFor="let pizzaType of pizzaTypes" [selectionView]="true"></app-pizza-card>
+    </div>
+  
+  </div>

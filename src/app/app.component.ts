@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { PizzaService } from './shared/services/pizza.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'pizzeria-web';
+
+  cartLength$ = this.pizzaService.cartItems$;
+  constructor(private router: Router, private pizzaService: PizzaService) {
+  }
+
+  goto(url: string) {
+    this.router.navigateByUrl(url);
+  }
 }

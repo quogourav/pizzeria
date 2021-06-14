@@ -1,0 +1,26 @@
+
+      <div class="card">
+  
+        <div style="height: 100px; width: 100%;" [ngStyle]="{'background-image': 'url(../../assets/' + imageId + '.webp)'}">
+
+        </div>
+        <span>
+            {{pizza.name}}
+        </span>
+        <div style="display: flex; justify-content: space-between; width: 100%;">
+            <div style="flex-direction: column;">
+                {{pizza.price}}
+            </div>
+            <div style="flex-direction: column;" (click)="customizePizza()">
+                Customize
+            </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; width: 100%;" *ngIf="selectionView">
+            <select [(ngModel)]="selectedSizeId" (change)="onSizeChange()">
+                <option *ngFor="let size of sizes$ | async" [ngValue]="size.id">{{size.name}}</option>
+            </select>
+            
+            <button (click)="addToCart()"> Add to Cart</button>
+        </div>
+        
+      </div> 

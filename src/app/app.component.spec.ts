@@ -1,6 +1,10 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { PizzaService } from './shared/services/pizza.service';
+import {MockService} from 'ng-mocks';
+import { Router } from '@angular/router';
+
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -11,6 +15,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      providers: [{provide: PizzaService, useValue: MockService(PizzaService)}]
     }).compileComponents();
   }));
 
@@ -20,16 +25,12 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'pizzeria-web'`, () => {
+  it('should navigate to another page', () => {
+    let router = TestBed.get(Router);
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('pizzeria-web');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('pizzeria-web app is running!');
+    spyOn(router, 'navigateByUrl');
+    app.goto('/home');
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/home');
   });
 });

@@ -1,0 +1,36 @@
+<div class="modal-header" *ngIf="displayAsModal">
+    <h4 class="modal-title">Customize pizza</h4>
+    <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h5>Select Size</h5>  
+  
+    Amount: {{pizza.price}} 
+    <input type="text" [(ngModel)]="pizza.name" *ngIf="!displayAsModal" placeholder="Add your custom pizza name" />
+    <div class="card-container">
+        <ng-container *ngIf="sizes$ | async as sizes">
+            <div class="card" (click)="updateSize(size)" [ngClass]="{'active': pizza.sizeId === size.id}" *ngFor="let size of sizes">
+                <span>
+                    {{size.name}}
+                </span>                
+            </div> 
+        </ng-container>
+        
+    </div>
+    <h5>Select Toppings</h5>  
+    <div class="card-container">
+        <ng-container *ngIf="toppings$ | async as toppings">
+            <div class="card" (click)="toggleTopping(topping)" [ngClass]="{'active': pizza.toppings.includes(topping.name)}" *ngFor="let topping of toppings">
+                <span>
+                    {{topping.name}} (Rs. {{topping.price}})
+                </span>                
+            </div> 
+        </ng-container>        
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" style="margin-right: 20px;" (click)="addToCart()">Add To Cart</button>
+    <button type="button" class="btn btn-outline-dark" *ngIf="displayAsModal" (click)="bsModalRef.hide()">Close</button>
+  </div>
